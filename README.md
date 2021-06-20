@@ -52,7 +52,8 @@ LogClient
 						. Bad(R, where clause) poll will become slow.
 						. Bad(R, order by starttime) TreeMap will order by Key which is processid, whereas we want order by Starttime
 						
-						
+					Order by Processid is not required, order by starttime is required.
+					
 			4. Use Heap
 					Start will be fast becuase Heap hepifince itself if required.
 					Poll will be fast, as select all
@@ -63,12 +64,17 @@ LogClient
 						.Good(R, All) You can pull out maximum, which means your poll will be fast.
 						
 			5. Use Complicated data structure: No data Structure can perform all start, end and poll fast
-					a. TreeMap
+					Heap+Map --> Will also work, pripority queue in java is implemented with Heap
+					TreeMap + Map --> Will also work, which we will see
+					
+					a. TreeMap, will act as queue, you can add and poll from this queue
 						CRUD
 						.Good(R, order by) poll firstEntry
 						
-					b. Map
+					b. HashMap, will act like index, so where clause search will be fast, end will be fast. With Processid as input.
+						CRUD
 						.Good(R, where clause) can go directly to value
+						
 						
 						
 						

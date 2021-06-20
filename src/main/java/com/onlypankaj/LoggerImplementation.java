@@ -2,18 +2,26 @@ package com.onlypankaj;
 
 import com.onlypankaj.model.Process;
 
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.TreeMap;
 
 public class LoggerImplementation implements LogClient {
-    private final TreeMap<Long, Process> processes;
+    private final TreeMap<Long, Process> queue;
+    private final Map<String, Process> processes;
 
     public LoggerImplementation() {
-        this.processes = new TreeMap<>();
+        this.queue = new TreeMap<>(Comparator.comparingLong(startTime -> startTime));
+        this.processes = new HashMap<>();
     }
 
     @Override
     public void start(String processId) {
-        processes.put(processId, new Process(processId,System.currentTimeMillis()));
+        final long now = System.currentTimeMillis();
+        final Process process = new Process(processId, now);
+        processes.put(processId, process);
+        queue.put(now,process);
 
     }
 
