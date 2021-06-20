@@ -4,6 +4,7 @@ import com.onlypankaj.model.Process;
 
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.TimeUnit;
 
 public class LoggerImplementation implements LogClient {
@@ -14,6 +15,7 @@ public class LoggerImplementation implements LogClient {
     public LoggerImplementation() {
         this.queue = new TreeMap<>(Comparator.comparingLong(startTime -> startTime));
         this.processes = new HashMap<>();
+        this.futures = new CopyOnWriteArrayList<>();        //List future
     }
 
     @Override
@@ -37,25 +39,21 @@ public class LoggerImplementation implements LogClient {
         //Issue we need to find process which has smallest start time
         //This is difficult with map as there is no ordering
         //This can be resolved with TreeMap, which has order
+
         final CompletableFuture result = new CompletableFuture<String>();
 
-        if (queue.isEmpty()){
-            System.out.println("Queue is empty");
-            // STAGE2 requirement: WAIT for end
-             futures.add(result);
-            return null;
-        }
-        final Process process = queue.firstEntry().getValue();
-
         //Remove Process
-        if(process.getEndTime()!=-1){
+        if(!queue.isEmpty() && queue.firstEntry().getValue().getEndTime()!=-1){
+            final Process process = queue.firstEntry().getValue();
             System.out.println(process.getId() + " started at " + process.getStartTime() + " and ended at "+ process.getEndTime());
             queue.pollFirstEntry();
             processes.remove(process.getId());
-        }else {
-            System.out.println("No Completed Task in queue size: " + queue.size());
+        } else {
+            //Future Added
+            futures.add(result);
         }
-        // STAGE2 requirement: WAIT for end of first process.
+
+        //Wait and Wake up condition
         try {
             return (String) result.get(3, TimeUnit.SECONDS);
         } catch (Exception e){
