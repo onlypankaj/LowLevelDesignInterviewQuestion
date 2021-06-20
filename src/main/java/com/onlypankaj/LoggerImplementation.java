@@ -27,8 +27,8 @@ public class LoggerImplementation implements LogClient {
 
     @Override
     public void end(String processId) {
-        processes.get(processId).setEndTime(System.currentTimeMillis()); // List issue with search, resolved with map
-
+        final long now = System.currentTimeMillis();
+        processes.get(processId).setEndTime(now); // List issue with search, resolved with map
     }
 
     @Override
@@ -37,11 +37,12 @@ public class LoggerImplementation implements LogClient {
         //This is difficult with map as there is no ordering
         //This can be resolved with TreeMap, which has order
 
-        final Process process = processes.firstEntry().getValue();
+        final Process process = queue.firstEntry().getValue();
 
         //Remove Process
         if(process.getEndTime()!=1){
             System.out.println(process.getId() + "started at " + process.getStartTime() + " and ended at "+ process.getEndTime());
+            queue.pollFirstEntry();
             processes.remove(process.getId());
         }
 
