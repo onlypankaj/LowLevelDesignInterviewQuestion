@@ -8,6 +8,7 @@ public class Process {
     public Process(String id, long startTime) {
         this.id = id;
         this.startTime = startTime;
+        this.endTime=-1;
     }
 
     public String getId() {

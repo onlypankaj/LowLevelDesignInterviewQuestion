@@ -2,6 +2,8 @@ LogClient
 	With start, end and poll.
 	Poll event will remove the queue.
 	When end happens then only print, otherwise just hold
+
+################### STAGE1 BASIC ##########################################
 	
 	Step1:
 		Process Model with process id, start time and end time
@@ -75,7 +77,11 @@ LogClient
 						CRUD
 						.Good(R, where clause) can go directly to value
 						
-						
+################### STAGE1 COMPLETED ##########################################
+
+
+################### STAGE2 CONCURRENCY ##########################################
+
 						
 						
 				
