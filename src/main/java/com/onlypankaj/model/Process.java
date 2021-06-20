@@ -5,10 +5,9 @@ public class Process {
     private final long startTime;
     private long endTime;
 
-    public Process(String id, long startTime, long endTime) {
+    public Process(String id, long startTime) {
         this.id = id;
         this.startTime = startTime;
-        this.endTime = endTime;
     }
 
     public String getId() {
