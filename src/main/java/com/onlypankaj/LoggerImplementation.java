@@ -2,25 +2,25 @@ package com.onlypankaj;
 
 import com.onlypankaj.model.Process;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoggerImplementation implements LogClient {
-    private final List<Process> processes;
+    private final Map<String, Process> processes;
 
     public LoggerImplementation() {
-        this.processes = new ArrayList<>();
+        this.processes = new HashMap<>();
     }
 
     @Override
     public void start(String processId) {
-        processes.add(new Process(processId,System.currentTimeMillis()));
+        processes.put(processId, new Process(processId,System.currentTimeMillis()));
 
     }
 
     @Override
     public void end(String processId) {
-        processes.get(); // issue with search
+        processes.get(processId).setEndTime(System.currentTimeMillis()); // List issue with search, resolved with map
 
     }
 
