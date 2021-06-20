@@ -29,7 +29,15 @@ LogClient
 			So you need map
 			
 			2. Use Map with processid as key and Process as value.
-				
+					initialize as HashMap
+					instead of add use put
+					
+					CRUD
+						. Good(R, where clause) Can find easily the processid with key
+						. Bad(R, order by) Find smallest start time, bcz Map has no ordering.
+						
+						
+						
 				
 			
 			
