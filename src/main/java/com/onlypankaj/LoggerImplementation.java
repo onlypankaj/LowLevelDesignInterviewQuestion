@@ -33,14 +33,15 @@ public class LoggerImplementation implements LogClient {
     }
 
     @Override
-    public void poll() {
+    public String poll() {
         //Issue we need to find process which has smallest start time
         //This is difficult with map as there is no ordering
         //This can be resolved with TreeMap, which has order
 
         if (queue.isEmpty()){
             System.out.println("Queue is empty");
-            return;
+            // STAGE2 requirement: WAIT
+            return null;
         }
         final Process process = queue.firstEntry().getValue();
 
@@ -52,6 +53,8 @@ public class LoggerImplementation implements LogClient {
         }else {
             System.out.println("No Completed Task in queue size: " + queue.size());
         }
+        // STAGE2 requirement: WAIT
+        return null;
 
     }
 }

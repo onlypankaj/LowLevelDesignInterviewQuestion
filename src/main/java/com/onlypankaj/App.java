@@ -10,6 +10,8 @@ public class App
 
         final LogClient logger = new LoggerImplementation();
 
+
+        // STAGE1
         //output
         //1
         //3
