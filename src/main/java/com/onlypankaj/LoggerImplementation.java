@@ -20,7 +20,7 @@ public class LoggerImplementation implements LogClient {
 
     @Override
     public void end(String processId) {
-        processes.get();
+        processes.get(); // issue with search
 
     }
 
