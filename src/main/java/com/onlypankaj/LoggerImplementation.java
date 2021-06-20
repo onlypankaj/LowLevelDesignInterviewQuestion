@@ -5,7 +5,7 @@ import com.onlypankaj.model.Process;
 import java.util.TreeMap;
 
 public class LoggerImplementation implements LogClient {
-    private final TreeMap<String, Process> processes;
+    private final TreeMap<Long, Process> processes;
 
     public LoggerImplementation() {
         this.processes = new TreeMap<>();

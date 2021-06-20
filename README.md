@@ -17,7 +17,9 @@ LogClient
 	
 	Step3:
 		For List of Process you can use
-			1. LinkList: List is Not good idea 
+			1. LinkList: List is Not good idea
+					End will be slow.
+					
 					CRUD
 						. Good(C)Start you can add to link list quickly
 						. Bad(U) But when you have to end, that will have to travel liner on list.(Not Good for Updated)
@@ -32,9 +34,41 @@ LogClient
 					initialize as HashMap
 					instead of add use put
 					
+					Poll will be slow.
+					
 					CRUD
 						. Good(R, where clause) Can find easily the processid with key
 						. Bad(R, order by) Find smallest start time, bcz Map has no ordering.
+						. Bad(R, All) is slow.
+						
+						Option TreeMap
+						
+			3. Use TreeMap
+					It has order and can use firstEntry method directly
+					Poll is slow.
+					
+					CRUD
+						. Good(R, order by) as TreeMap is already ordered.
+						. Bad(R, where clause) poll will become slow.
+						. Bad(R, order by starttime) TreeMap will order by Key which is processid, whereas we want order by Starttime
+						
+						
+			4. Use Heap
+					Start will be fast becuase Heap hepifince itself if required.
+					Poll will be fast, as select all
+					but end will be slow, becuase it will have to search Process.
+					
+					CRUD
+						.Bad(R, where clause)You cant do search operation effecitantly
+						.Good(R, All) You can pull out maximum, which means your poll will be fast.
+						
+			5. Use Complicated data structure: No data Structure can perform all start, end and poll fast
+					a. TreeMap
+						CRUD
+						.Good(R, order by) poll firstEntry
+						
+					b. Map
+						.Good(R, where clause) can go directly to value
 						
 						
 						
