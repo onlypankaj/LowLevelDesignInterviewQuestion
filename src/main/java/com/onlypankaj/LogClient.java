@@ -7,5 +7,5 @@ public interface LogClient {
 
     void end(String processId);
 
-    void poll();
+    String poll();
 }
